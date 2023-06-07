@@ -3,14 +3,14 @@ const express = require("express");
 const app = express();
 const PORT = 3001;
 
-const students = [{
+let students = [{
     id: 1,
     name: "John",
     email: "john@gmail.com",
     contact: 9898989898
 },
 {
-    id: 2,
+    id: 10,
     name: "Ravi",
     email: "ravi@gmail.com",
     contact: 9898989898
@@ -32,9 +32,39 @@ app.get("/api/v1/students", (req, res) => {
 app.get("/api/v1/students/:studentId", (req, res) => {
     console.log(req.params)
     const { studentId } = req.params;
-    const student = students.find((student)=>student.id==studentId);
-    res.json({status:"Student returned successfully", student:student})
+    const student = students.find((student) => student.id == studentId);
+    res.json({ status: "Student returned successfully", student: student })
 })
+
+app.post("/api/v1/students", (req, res) => {
+    const student = req.body
+    const newStudents = students.sort((a, b) => b.id - a.id);
+    const newId = newStudents[0].id + 1;
+
+    student.id = newId;
+    students.push(student);
+
+    res.json({ status: "Student added successfully", student: student })
+})
+
+app.put("/api/v1/students/:studentId", (req, res) => {
+    const { studentId } = req.params;
+    const student = req.body;
+    const newStudents = students.map((value) => ((value.id == studentId) ? { ...value, ...student } : value))
+
+    students = newStudents;
+
+    res.json({ status: "Student updated successfully", student: { studentId, ...student } })
+})
+
+app.delete("/api/v1/students/:studentId", (req, res) => {
+    const { studentId } = req.params;
+    const newStudents = students.filter((value) => value.id != studentId)
+    students = newStudents;
+
+    res.json({ status: "Student deleted successfully" })
+})
+
 
 // app.get("/", (req,res)=>{
 //     console.log("Home Page...")
