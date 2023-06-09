@@ -1,16 +1,34 @@
-const express = require("express");
-const mysql = require("mysql2");
+import * as dotenv from "dotenv";
+import express, { json } from "express";
+import { createPool } from "mysql2";
+import chalk from "chalk";
 const app = express();
-const PORT = 3001;
+dotenv.config();
 
-app.use(express.json())
+const PORT = process.env.PORT || 3001;
 
-const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "nodejs"
+// Middleware
+app.use(json())
+app.use((req, res, next) => {
+    console.log(chalk.green(req.method), chalk.blue(req.url))
+    next();
+});
+
+const pool = createPool({
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
 })
+
+pool.getConnection((error, connection) => {
+    if (error) {
+        console.log(chalk.red("Error connecting to the Database"));
+        return;
+    }
+    console.log(chalk.green("Connected to Database..."))
+    connection.release();
+});
 
 app.get("/api/v1/students", (req, res, next) => {
     pool.query("SELECT * from students", (error, results) => {
@@ -26,6 +44,7 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(PORT, () => {
-    console.log("Server is running on PORT:" + PORT)
+    console.log(chalk.blue("Server is running on PORT:") + chalk.red(PORT))
 })
 
+export default app
