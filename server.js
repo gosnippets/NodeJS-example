@@ -37,6 +37,61 @@ app.get("/api/v1/students", (req, res, next) => {
     })
 })
 
+app.get("/api/v1/students/:studentId", (req, res, next) => {
+    const { studentId } = req.params
+    console.log(studentId)
+    pool.query("SELECT * from students WHERE id" + studentId, (error, result) => {
+        if (error) { next(error); return; }
+        res.status(200).json({ status: "Students returned successfully", student: result })
+    })
+})
+
+app.post("/api/v1/students", async (req, res, next) => {
+    const student = req.body
+    try {
+        const query = "INSERT INTO students SET ?";
+        const [result] = await pool.promise().query(query, student);
+        student.id = result.insertId
+        res.status(201).json({ status: "Students added successfully", student: student })
+    } catch (error) {
+        next(error);
+        return;
+    }
+
+
+    // const query = "INSERT INTO students (name, email, contact) VALUES ('" + student.name + "','" + student.email + "','" + student.contact + "')";
+    // console.log(query);
+    // pool.query(query, (error, result) => {
+    //     if (error) { next(error); return; }
+    //     console.log(result)
+    //     student.id = result.insertId
+    //     res.status(201).json({ status: "Students added successfully", student: student })
+    // })
+
+    // pool.query("SELECT * from students", (error, results) => {
+    //     if (error) { next(error); return; }
+    //     res.status(200).json({ status: "Students returned successfully", students: results })
+    // })
+})
+
+app.post("/api/v1/students/all", async (req, res, next) => {
+    const students = req.body;
+    const createdStudents = [];
+    try {
+        for (var student of students) {
+            const query = "INSERT INTO students SET ?";
+            const [result] = await pool.promise().query(query, student);
+            student.id = result.insertId
+            createdStudents.push(student)
+        }
+        res.status(201).json({ status: "Students added successfully", students: createdStudents })
+    } catch (error) {
+        next({ error: error, insertedStudent: createdStudents });
+        return;
+    }
+})
+
+
 // Error handling middleware
 app.use((error, req, res, next) => {
     console.log("Error", error);
