@@ -38,16 +38,24 @@ app.get("/api/v1/students", (req, res, next) => {
 })
 
 app.get("/api/v1/students/:studentId", (req, res, next) => {
-    const { studentId } = req.params
-    console.log(studentId)
-    pool.query("SELECT * from students WHERE id" + studentId, (error, result) => {
+    const { studentId } = req.params;
+    pool.query("SELECT * from students WHERE id=" + studentId, (error, result) => {
         if (error) { next(error); return; }
         res.status(200).json({ status: "Students returned successfully", student: result })
     })
 })
 
+app.delete("/api/v1/students/:studentId", (req, res, next) => {
+    const { studentId } = req.params;
+    pool.query("DELETE from students WHERE id=" + studentId, (error, result) => {
+        if (error) { next(error); return; }
+        res.status(200).json({ status: "Student deleted successfully", affectedRows: result.affectedRows })
+    })
+})
+
 app.post("/api/v1/students", async (req, res, next) => {
     const student = req.body
+    student.created_date = new Date();
     try {
         const query = "INSERT INTO students SET ?";
         const [result] = await pool.promise().query(query, student);
@@ -91,6 +99,23 @@ app.post("/api/v1/students/all", async (req, res, next) => {
     }
 })
 
+app.put("/api/v1/students/:studentId", async (req, res, next) => {
+    const { studentId } = req.params;
+    const student = req.body;
+
+    try {
+        const query = "UPDATE students SET ? WHERE id = ?";
+        const [result] = await pool.promise().query(query, [student, studentId]);
+        student.id = studentId;
+        student.affectedRows = result.affectedRows
+        res.status(201).json({ status: "Student updated successfully", student: student })
+    } catch (error) {
+        next(error);
+        return;
+    }
+
+})
+
 
 // Error handling middleware
 app.use((error, req, res, next) => {
@@ -103,3 +128,11 @@ app.listen(PORT, () => {
 })
 
 export default app
+
+// Table USER: id, name, email, created_date
+
+// CRUD
+// C- Create 
+// R- Read
+// U- Update
+// D- Delete
