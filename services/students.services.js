@@ -1,22 +1,48 @@
+import { createStudent, deleteStudent, findStudentByID, findStudents, updateStudent } from "../models/students.models.js"
 
-const createStudent = async (req, res, next) => {
-    res.json({ type: "createStudent" })
+const _createStudent = async (req, res, next) => {
+    try {
+        const student = await createStudent(req.body);
+        res.status(200).json({ status: "Student created successfully", students: student })
+    } catch (error) {
+        console.log("Error..", error)
+    }
 }
 
-const getAllStudents = async (req, res, next) => {
-    res.json({ type: "getAllStudents" })
+const _getAllStudents = async (req, res, next) => {
+    try {
+        const students = await findStudents();
+        res.status(200).json({ status: "Students returned successfully", students: students })
+    } catch (error) {
+        console.log("Error..", error)
+    }
 }
 
-const getStudentById = async (req, res, next) => {
-    res.json({ type: "getStudentById" })
+const _getStudentById = async (req, res, next) => {   
+    try {
+        const student = await findStudentByID(req.params.id);
+        res.status(200).json({ status: "Student returned successfully", student: student })
+    } catch (error) {
+        console.log("Error..", error)
+    }
 }
 
-const updateStudent = async (req, res, next) => {
-    res.json({ type: "updateStudent" })
+const _updateStudent = async (req, res, next) => {
+    try {
+        const result = await updateStudent(req.params.id, req.body)
+        res.status(200).json({ status: "Student updated successfully", student: result })
+    } catch (error) {
+        console.log("Error..", error)
+    }
 }
 
-const deleteStudent = async (req, res, next) => {
-    res.json({ type: "deleteStudent" })
+const _deleteStudent = async (req, res, next) => {
+    try {
+        const student = await deleteStudent(req.params.id);
+        res.status(200).json({ status: "Student deleted successfully", student: student })
+    } catch (error) {
+        console.log("Error..", error)
+    }
 }
 
-export default { createStudent, getAllStudents, getStudentById, updateStudent, deleteStudent }
+export default { _createStudent, _getAllStudents, _getStudentById, _updateStudent, _deleteStudent }

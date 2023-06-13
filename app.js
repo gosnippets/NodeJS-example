@@ -2,8 +2,11 @@ import * as dotenv from "dotenv";
 import express, { json } from "express";
 import chalk from "chalk";
 import routes from "./routes/index.routes.js";
+import { checkConnection } from "./config/db.js"
+
 const app = express();
 dotenv.config();
+checkConnection()
 
 const PORT = process.env.PORT || 3001;
 
