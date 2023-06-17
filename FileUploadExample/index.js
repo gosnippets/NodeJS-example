@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import express, { json } from "express";
 import chalk from "chalk";
+import { fileURLToPath } from "url";
+import path from "path";
 import routes from "./app/routes/index.routes.js";
 import { checkConnection } from "./app/config/db.js"
 
@@ -18,7 +20,10 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/api/v1/", routes)
+app.use("/api/v1/", routes);
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')))
 
 // Error handling middleware
 app.use((error, req, res, next) => {
