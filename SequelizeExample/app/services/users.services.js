@@ -47,6 +47,8 @@ const _loginUser = async (req, res) => {
 
 const _getAllUsers = async (req, res) => {
     try {
+        if (req.user) console.log("User:", req.user);
+        
         const users = await User.findAll({ attributes: { exclude: ['password'] } });
         return msg.successMsg(res, 200, users, "Users returned successfully!")
 

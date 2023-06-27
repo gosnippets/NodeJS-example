@@ -1,4 +1,4 @@
-import msg from "../utils/response.js"
+import msg from "../../utils/response.js"
 
 const validate = (schema) => async (req, res, next) => {
     try {
