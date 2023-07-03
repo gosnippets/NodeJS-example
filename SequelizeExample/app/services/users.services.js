@@ -5,6 +5,7 @@ import db from "../models/index.js";
 import msg from "../utils/response.js"
 dotenv.config();
 const User = db.users
+const Project = db.project
 
 const _createUser = async (req, res) => {
     try {
@@ -75,7 +76,7 @@ const _getUserById = async (req, res) => {
 const _getUserByEmail = async (req, res) => {
     try {
         const { email } = req.params;
-        const user = await User.findOne({ where: { email }, attributes: { exclude: ['password'] } });
+        const user = await User.findOne({ where: { email }, attributes: { exclude: ['password'] }, include: [Project]});
 
         if (user) {
             return msg.successMsg(res, 200, user, "User return successfully...")
