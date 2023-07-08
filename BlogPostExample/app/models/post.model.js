@@ -12,7 +12,11 @@ const postModel = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING,
             allowNull: false
-        }
+        },        
+        image: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
     });
 
     return Post;
