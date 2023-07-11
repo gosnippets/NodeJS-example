@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import express, { json } from "express";
 import chalk from "chalk";
 import connectDB from "./app/models/connection.js";
-// import routes from "./app/routes/index.routes.js";
+import routes from "./app/routes/index.routes.js";
 
 const app = express();
 dotenv.config();
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.use("/api/v1/", routes);
+app.use("/api/v1/", routes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
