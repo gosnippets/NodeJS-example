@@ -22,7 +22,7 @@ const _createUser = async (req, res) => {
         data.__v = undefined;
 
         if (!data._id) {
-            return msg.errorMsg(res, 500, error.message || "Error creating the record");
+            return msg.errorMsg(res, 500, "Error creating the record");
         }
 
         return msg.successMsg(res, 201, data, "User register successfully!!")
@@ -57,7 +57,7 @@ const _loginUser = async (req, res) => {
 
 const _getAllUsers = async (req, res) => {
     try {
-        const allUsers = await User.find().populate('profile', '-__v').select("-password -__v");
+        const allUsers = await User.find().populate('profile', '-__v').populate('task', '-__v').select("-password -__v");
         return msg.successMsg(res, 200, allUsers, "Users returned successfully!!")
     } catch (error) {
         return msg.errorMsg(res, 500, error.message || "Something went wrong");
@@ -67,7 +67,7 @@ const _getAllUsers = async (req, res) => {
 const _getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await User.findById(id).populate('profile', '-__v').select("-password -__v");;
+        const data = await User.findById(id).populate('profile', '-__v').populate('task', '-__v').select("-password -__v");;
         return msg.successMsg(res, 200, data, "User returned successfully!!")
 
     } catch (error) {
@@ -78,7 +78,7 @@ const _getUserById = async (req, res) => {
 const _getUserByEmail = async (req, res) => {
     try {
         const { email } = req.params;
-        const data = await User.findOne({ email }).populate('profile', '-__v').select("-password -__v");;
+        const data = await User.findOne({ email }).populate('profile', '-__v').populate('task', '-__v').select("-password -__v");;
         return msg.successMsg(res, 200, data, "User returned successfully!!")
     } catch (error) {
         return msg.errorMsg(res, 500, error.message || "Something went wrong");

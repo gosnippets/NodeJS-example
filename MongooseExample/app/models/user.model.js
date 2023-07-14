@@ -24,7 +24,15 @@ const userSchma = new Schema({
     profile: {
         type: Schema.Types.ObjectId,
         ref: 'Profile'
-    }
+    },
+    task:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Task'
+    }],
+    products: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    }]
 });
 
 export default model("User", userSchma);
