@@ -57,7 +57,7 @@ const _loginUser = async (req, res) => {
 
 const _getAllUsers = async (req, res) => {
     try {
-        const allUsers = await User.find().populate('profile', '-__v').populate('task', '-__v').select("-password -__v");
+        const allUsers = await User.find().populate('profile', '-__v').populate('task', '-__v').populate("products", "-__v").select("-password -__v");
         return msg.successMsg(res, 200, allUsers, "Users returned successfully!!")
     } catch (error) {
         return msg.errorMsg(res, 500, error.message || "Something went wrong");
@@ -67,7 +67,7 @@ const _getAllUsers = async (req, res) => {
 const _getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await User.findById(id).populate('profile', '-__v').populate('task', '-__v').select("-password -__v");;
+        const data = await User.findById(id).populate('profile', '-__v').populate('task', '-__v').populate("products", "-__v").select("-password -__v");;
         return msg.successMsg(res, 200, data, "User returned successfully!!")
 
     } catch (error) {

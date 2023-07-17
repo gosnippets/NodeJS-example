@@ -1,0 +1,8 @@
+Task
+1. Create express server and connect with Mongoose
+2. Create API for e-commerse
+3. Implement CRUD operations using mongoose
+Model: Product model:
+    Name, price, title, description, images
+Model: Features Model:
+    colors, sizes

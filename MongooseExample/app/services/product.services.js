@@ -14,12 +14,12 @@ const _createProduct = async (req, res) => {
 
 const _addProductToUser = async (req, res) => {
     try {
-        const { userid, product } = req.body;
-        console.log({ userid, product })
-        const updatedUser = await userModel.findByIdAndUpdate(userid, { product });
+        const { userid, products } = req.body;
+        console.log({ userid, products })
+        const updatedUser = await userModel.findByIdAndUpdate(userid, { products }, { new: true }).select("-password -__v").populate("task", "-__v").populate("products", "-__v");
         if (!updatedUser) return msg.errorMsg(res, 404, "No user found with this ID!");
 
-        return msg.successMsg(res, 200, {}, "Product added successfully to User");
+        return msg.successMsg(res, 200, updatedUser, "Product added successfully to User");
     } catch (error) {
         console.log(error);
         return msg.errorMsg(res, 500, error.message || "Something went wrong!")
