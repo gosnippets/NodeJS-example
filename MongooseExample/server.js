@@ -4,6 +4,12 @@ import chalk from "chalk";
 import connectDB from "./app/models/connection.js";
 import routes from "./app/routes/index.routes.js";
 import { rateLimit } from "express-rate-limit";
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+
+const jsonData = fs.readFileSync("./swagger.json", 'utf8')
+const swaggerDoc = JSON.parse(jsonData);
+
 
 const app = express();
 dotenv.config();
@@ -18,6 +24,7 @@ app.use((req, res, next) => {
     console.log(chalk.green(req.method), chalk.blue(req.url))
     next();
 });
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute

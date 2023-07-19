@@ -1,0 +1,109 @@
+{
+    "swagger": "2.0",
+    "host": "localhost:3001",
+    "basePath": "/api/v1/",
+    "info": {
+        "title": "Swagger API Docs",
+        "description": "Api documents",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Ravi",
+            "email": "ravi@gmail.com",
+            "url": "https://gosnippets.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http;//localhost:3001",
+            "description": "Local Server"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Login and Register API"
+        },
+        {
+            "name": "Users",
+            "description": "Users API"
+        }
+    ],
+    "paths": {
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User Login Api.",
+                "description": "Login API",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "login",
+                        "required": true,
+                        "description": "Request body as following...",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "ram@gmail.com"
+                                },
+                                "password": {
+                                    "type": "string",
+                                    "example": "Test1234"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response with token details.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Logged in successfully!!"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "example": {
+                                        "name": {
+                                            "firstname": "Ramdas",
+                                            "lastname": "Gupta"
+                                        },
+                                        "_id": "64af7964aa4322071ce82f36",
+                                        "email": "ram@gmail.com",
+                                        "contact": "9898989890",
+                                        "profile": {
+                                            "_id": "64af7964aa4322071ce82f34",
+                                            "bio": "This is Bio"
+                                        },
+                                        "task": [
+                                            "64b0c817e2ae2044f6fac518",
+                                            "64b0c81ee2ae2044f6fac51a"
+                                        ],
+                                        "products": [
+                                            "64b0ce831365e1add2a5414e",
+                                            "64b0cea21365e1add2a54150"
+                                        ],
+                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGFmNzk2NGFhNDMyMjA3MWNlODJmMzYiLCJlbWFpbCI6InJhbUBnbWFpbC5jb20iLCJpYXQiOjE2ODk3NDA2ODB9.LcyxMu46mixXSI9gY78IaNjkBJ40l3zM1cTVkU7U7fs"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {},
+                    "500": {}
+                }
+            }
+        }
+    }
+}
