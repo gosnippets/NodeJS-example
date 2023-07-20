@@ -104,6 +104,365 @@
                     "500": {}
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users list.",
+                "description": "Get all User API",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "All users list.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Users returned successfully!!"
+                                },
+                                "count": {
+                                    "type": "number",
+                                    "example": "1"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "example": [
+                                        {
+                                            "name": {
+                                                "firstname": "Ramdas",
+                                                "lastname": "Gupta"
+                                            },
+                                            "_id": "64af7964aa4322071ce82f36",
+                                            "email": "ram@gmail.com",
+                                            "contact": "9898989890",
+                                            "profile": {
+                                                "_id": "64af7964aa4322071ce82f34",
+                                                "bio": "This is Bio"
+                                            },
+                                            "task": [
+                                                {
+                                                    "_id": "64b0c817e2ae2044f6fac518",
+                                                    "title": "Task 1"
+                                                }
+                                            ],
+                                            "products": [
+                                                {
+                                                    "_id": "64b0ce831365e1add2a5414e",
+                                                    "name": "Laptop",
+                                                    "users": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {}
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by ID.",
+                "description": "Get single user API",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Get user by ID",
+                        "example": "64af7964aa4322071ce82f36"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Single user details.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User returned successfully!!"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "example": {
+                                        "name": {
+                                            "firstname": "Ramdas",
+                                            "lastname": "Gupta"
+                                        },
+                                        "_id": "64af7964aa4322071ce82f36",
+                                        "email": "ram@gmail.com",
+                                        "contact": "9898989890",
+                                        "profile": {
+                                            "_id": "64af7964aa4322071ce82f34",
+                                            "bio": "This is Bio"
+                                        },
+                                        "task": [
+                                            {
+                                                "_id": "64b0c817e2ae2044f6fac518",
+                                                "title": "Task 1"
+                                            }
+                                        ],
+                                        "products": [
+                                            {
+                                                "_id": "64b0ce831365e1add2a5414e",
+                                                "name": "Laptop",
+                                                "users": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {}
+                }
+            }
+        },
+        "/users/{email}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by Email ID.",
+                "description": "Get single user API",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "email",
+                        "required": true,
+                        "description": "Get user by ID",
+                        "example": "ram@gmail.com"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Single user details.",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User returned successfully!!"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "example": {
+                                        "name": {
+                                            "firstname": "Ramdas",
+                                            "lastname": "Gupta"
+                                        },
+                                        "_id": "64af7964aa4322071ce82f36",
+                                        "email": "ram@gmail.com",
+                                        "contact": "9898989890",
+                                        "profile": {
+                                            "_id": "64af7964aa4322071ce82f34",
+                                            "bio": "This is Bio"
+                                        },
+                                        "task": [
+                                            {
+                                                "_id": "64b0c817e2ae2044f6fac518",
+                                                "title": "Task 1"
+                                            }
+                                        ],
+                                        "products": [
+                                            {
+                                                "_id": "64b0ce831365e1add2a5414e",
+                                                "name": "Laptop",
+                                                "users": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {}
+                }
+            }
+        },
+        "users/{id}": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user by ID.",
+                "description": "Update single user API",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Update user by ID",
+                        "example": "64af7964aa4322071ce82f36"
+                    },
+                    {
+                        "in": "body",
+                        "name": "Update User",
+                        "required": true,
+                        "description": "Request body as following...",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "object",
+                                    "example": {
+                                        "firstname": "Ramdas",
+                                        "lastname": "Gupta"
+                                    }
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "ram@gmail.com"
+                                },
+                                "contact": {
+                                    "type": "string",
+                                    "example": "8989898989"
+                                },
+                                "bio": {
+                                    "type": "string",
+                                    "example": "This is Bio"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update signle user by ID",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User updated successfully!!"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "example": {
+                                        "name": {
+                                            "firstname": "Ramdas",
+                                            "lastname": "Gupta"
+                                        },
+                                        "_id": "64af7964aa4322071ce82f36",
+                                        "email": "ram@gmail.com",
+                                        "contact": "9898989890",
+                                        "profile": {
+                                            "_id": "64af7964aa4322071ce82f34",
+                                            "bio": "This is Bio"
+                                        },
+                                        "task": [
+                                            {
+                                                "_id": "64b0c817e2ae2044f6fac518",
+                                                "title": "Task 1"
+                                            }
+                                        ],
+                                        "products": [
+                                            {
+                                                "_id": "64b0ce831365e1add2a5414e",
+                                                "name": "Laptop",
+                                                "users": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {}
+                }
+            }
+        },
+        "/users/{id}/": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user by ID.",
+                "description": "Delete single user API",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Delete user by ID",
+                        "example": "64af7964aa4322071ce82f36"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete signle user by ID",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "number",
+                                    "example": "200"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User deleted successfully!!"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "example": {
+                                        "name": {
+                                            "firstname": "Ramdas",
+                                            "lastname": "Gupta"
+                                        },
+                                        "_id": "64af7964aa4322071ce82f36",
+                                        "email": "ram@gmail.com",
+                                        "contact": "9898989890",
+                                        "profile": {
+                                            "_id": "64af7964aa4322071ce82f34",
+                                            "bio": "This is Bio"
+                                        },
+                                        "task": [
+                                            {
+                                                "_id": "64b0c817e2ae2044f6fac518",
+                                                "title": "Task 1"
+                                            }
+                                        ],
+                                        "products": [
+                                            {
+                                                "_id": "64b0ce831365e1add2a5414e",
+                                                "name": "Laptop",
+                                                "users": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {}
+                }
+            }
         }
     }
 }
