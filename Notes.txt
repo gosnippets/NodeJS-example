@@ -6,3 +6,12 @@ Model: Product model:
     Name, price, title, description, images
 Model: Features Model:
     colors, sizes
+
+===================================================
+Node Project using Express, Sequelize:
+College ERP:
+1. Students Module (Registration) -
+    Students record: id, enrollmentNumber, name, email, contact, address, branch
+
+2. Account Management: enrollmentNumber, totalFees, yearlyFees
+   Table for Fees management: enrollmentNumber, paidAmount, timestamp
