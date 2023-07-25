@@ -3,6 +3,7 @@ import express, { json } from "express";
 import chalk from "chalk";
 import routes from "./app/routes/index.routes.js";
 import db from "./app/models/index.js";
+import logger from "./app/utils/logger.js";
 
 const app = express();
 dotenv.config();
@@ -32,6 +33,7 @@ app.use("/api/v1/", routes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
+    logger.error("Internal Server Error: ", error)
     console.log("Error", error);
     res.status(500).json({ status: "Internal Server Error", error: error })
 })

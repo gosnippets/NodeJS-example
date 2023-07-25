@@ -1,3 +1,5 @@
+import logger from "./logger.js";
+
 function successMsg(res, status, data, message) {
     const obj = { status: status, message: message }
     if (Array.isArray(data)) { obj.count = data.length }
@@ -6,6 +8,7 @@ function successMsg(res, status, data, message) {
 }
 
 function errorMsg(res, status, message) {
+    logger.error(message);
     res.status(status).json({ status: status, message: message });
 }
 
