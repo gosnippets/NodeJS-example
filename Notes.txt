@@ -15,3 +15,7 @@ College ERP:
 
 2. Account Management: enrollmentNumber, totalFees, yearlyFees
    Table for Fees management: enrollmentNumber, paidAmount, timestamp
+
+3. Library Management:
+Books table: bookId(PK), authorName, publisherName
+IssueBookTransaction: bookId, studentId, issueDate, returnDueDate
